@@ -16,13 +16,21 @@ This project was developed to:
 ## 📂 **Project Structure**
 ```plaintext
 Monitor-Services/
+├── CheckService/
+│   ├── app.py               # Code for  Dashboard backend
+│   ├── templates/
+│   │   └── index.html       # UI for Dashboard backend
+│   └── static/
+│       └── styles.css       # Stylesheet for UI
 ├── Service1/
-│   ├── app.py               # Service1 Code
-│   └── templates/
-│       └── index.html       # UI for Service1
+│   ├── app.py               # Code for Service1
+│   ├── templates/
+│   │   └── index.html       # UI for Service1
+│   └── static/
+│       └── styles.css       # Stylesheet for UI
 ├── Service2/
-│   └── app.py               # Service2 Code
-└── README.md                # Project Documentation
+│   ├── app.py               # Code for Service2
+├── README.md                # Project Documentation
 ```
 
 ---
@@ -33,10 +41,12 @@ Monitor-Services/
 - Python 3.x installed
 - `pip` (Python package manager)
 
+---
+
 ### 1️⃣ **Install Dependencies**
 Install required libraries:
 ```bash
-pip3 install flask flask-cors requests
+pip install flask flask-socketio requests
 ```
 
 ---
@@ -46,15 +56,15 @@ pip3 install flask flask-cors requests
    ```bash
    cd Service1
    ```
-2. Start the service:
+2. Start Service1:
    ```bash
-   python3 app.py
+   python app.py
    ```
 3. Open your browser and go to:
    ```
    http://localhost:5001
    ```
-   - Use the **UI Toggle** to manage the status of Service1 and simulate TLS/SSL issues.
+   - Use the UI to toggle Service1 status and simulate TLS/SSL issues.
 
 ---
 
@@ -63,18 +73,31 @@ pip3 install flask flask-cors requests
    ```bash
    cd Service2
    ```
-2. Start the service:
+2. Start Service2:
    ```bash
-   python3 app.py
+   python app.py
    ```
-3. Service2 will listen for API calls on:
+3. Service2 will listen for API calls at:
    ```
    http://localhost:5002/api/service2
    ```
 
 ---
 
-### 4️⃣ **Test the Services with Postman**
+### 4️⃣ **Run the Dashboard**
+1. From the main project directory:
+   ```bash
+   python app.py
+   ```
+2. Open your browser and go to:
+   ```
+   http://localhost:5005
+   ```
+3. The dashboard will update service statuses in real-time.
+
+---
+
+### 5️⃣ **Test the Services with Postman**
 1. Open Postman and send a `POST` request to:
    ```
    POST http://localhost:5002/api/service2
@@ -86,53 +109,27 @@ pip3 install flask flask-cors requests
    }
    ```
 3. Observe the Response:
-   - If Service1 is **On** and no TLS/SSL issue → HTTP 200 OK
-   - If Service1 is **Off** → HTTP 500 Internal Server Error
-   - If TLS/SSL issue is simulated → HTTP 500 Internal Server Error with appropriate message.
+   - If Service1 **On** → HTTP 200 OK
+   - If Service1 **Off** → HTTP 500 Internal Server Error
+   - If TLS/SSL Issue is simulated → HTTP 500 Internal Server Error with appropriate message.
 
 ---
 
-## 📸 **Screenshots**
-### Service1 UI
-![Service1 UI](https://via.placeholder.com/800x400.png?text=Service1+UI+Example)
+## 📸 **Features**
+- **Service1**:
+  - UI to manage the status (On/Off).
+  - Simulate TLS/SSL issues between Service1 and Service2.
+- **Service2**:
+  - Accepts `idCard` from API and forwards responses from Service1.
 
 ---
 
-### Postman Example
-Response when `TLS/SSL Issue = ON`:
-```json
-{
-    "idCard": "1234567890123",
-    "service1_message": "TLS/SSL issue simulated"
-}
-```
-
----
-
-## 🌟 **Features**
-- Service1:
-  - Toggle to manage On/Off status.
-  - Simulate TLS/SSL issues between services.
-- Service2:
-  - Accepts `idCard` from API.
-  - Forwards HTTP Status Code and messages from Service1 to the client.
-
----
-
-## 🌟 **Future Improvements**
-- Add logging for better debugging and monitoring.
-- Support real TLS/SSL configurations for secure connections.
+## ✨ **Future Improvements**
+- Add logging for better debugging.
+- Support real TLS/SSL configurations.
 - Integrate with a database for persistent data.
-- Write unit tests for comprehensive testing.
+- Add unit tests for comprehensive testing.
 
 ---
 
-## ✨ **Why This Project?**
-This project serves as a learning experience for:
-1. Building a multi-service architecture.
-2. Debugging and simulating network issues.
-3. Understanding API testing workflows with Postman.
-
----
-
-💡 **Ready to Use!** Feel free to ask for further customization or enhancements 😊
+💡 **Ready to Use!** Feel free to reach out for further queries 😊
