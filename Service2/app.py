@@ -10,9 +10,9 @@ def service2_api():
     id_card = data.get("idCard")
 
     try:
-        # เรียก Service1 พร้อม Header User-Agent
-        response = requests.get("http://localhost:5001/api", headers={"User-Agent": "Service2"})
-        
+        # เปลี่ยนจาก GET เป็น POST และส่งข้อมูล idCard ไปด้วย
+        response = requests.post("http://localhost:5001/api", json={"idCard": id_card}, headers={"User-Agent": "Service2"})
+
         # Forward Response จาก Service1 โดยตรง
         return make_response(jsonify({
             "idCard": id_card,
