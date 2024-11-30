@@ -8,12 +8,19 @@
 </head>
 <body>
     <h1>Service Dashboard</h1>
-    <div class="services">
-        {% for service, info in statuses.items() %}
-        <div class="service">
-            <span class="service-name">{{ service }}</span>
-            <span class="status {{ 'active' if info.status == 'active' else 'down' }}"></span>
-            <p>Message: {{ info.message }}</p>
+    <div class="squads">
+        {% for squad in squads %}
+        <div class="squad">
+            <h2>{{ squad.name }}</h2>
+            <div class="services">
+                {% for service in squad.services %}
+                <div class="service">
+                    <span class="service-name">{{ service.name }}</span>
+                    <span class="status {{ 'active' if service.status == 'active' else 'down' }}"></span>
+                    <p>Message: {{ service.message }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endfor %}
     </div>

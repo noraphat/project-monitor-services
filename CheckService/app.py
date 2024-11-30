@@ -16,30 +16,114 @@ def check_service_status(url, payload):
 
 @app.route("/")
 def dashboard():
-    # Service URLs and payloads
-    services = {
-        "Service CIS": {
-            "url": "http://localhost:5001/api",
-            "payload": {"idCard": "1234567890123"}
+    # Groups of services by Squad
+    squads = [
+        {
+            "name": "Squad 1",
+            "services": [
+                {
+                    "name": "Service1",
+                    "url": "http://localhost:5001/api",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service2",
+                    "url": "http://localhost:5002/api/service2",
+                    "payload": {"idCard": "1234567890123"}
+                }
+            ]
         },
-        "IAM Call to CIS": {
-            "url": "http://localhost:5002/api/service2",
-            "payload": {"idCard": "1234567890123"}
-        },
-        "Service IAM": {
-            "url": "http://localhost:5002/api/service2",
-            "payload": {"idCard": "1234567890123"}
+        {
+            "name": "Squad 2",
+            "services": [
+                {
+                    "name": "Service1",
+                    "url": "http://localhost:5001/api",
+                    "payload": {"idCard": "1234567890123"}
+                },
+                {
+                    "name": "Service1",
+                    "url": "http://localhost:5001/api",
+                    "payload": {"idCard": "1234567890123"}
+                }
+            ]
         }
-        
-    }
+    ]
 
-    # Check statuses for each service
-    statuses = {}
-    for name, service in services.items():
-        status_info = check_service_status(service["url"], service["payload"])
-        statuses[name] = status_info
+    # Check statuses for each service in all squads
+    for squad in squads:
+        for service in squad["services"]:
+            status_info = check_service_status(service["url"], service["payload"])
+            service["status"] = status_info["status"]
+            service["message"] = status_info["message"]
 
-    return render_template("index.html", statuses=statuses)
+    return render_template("index.html", squads=squads)
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5005)
