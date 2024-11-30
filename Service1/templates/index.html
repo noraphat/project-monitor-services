@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service1 Toggle</title>
+    <style>
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            display: none;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Service1 Status</h1>
+    <label class="toggle-switch">
+        <input type="checkbox" id="toggleSwitch" onchange="toggleService()" checked>
+        <span class="slider"></span>
+    </label>
+    <p id="status">Status: ON</p>
+
+    <h2>Simulate TLS/SSL Issue</h2>
+    <label class="toggle-switch">
+        <input type="checkbox" id="simulateTLS" onchange="toggleTLS()">
+        <span class="slider"></span>
+    </label>
+    <p id="tlsStatus">TLS/SSL Issue Simulation: OFF</p>
+
+    <script>
+        async function toggleService() {
+            const response = await fetch('/toggle', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('status').innerText = `Status: ${data.on ? 'ON' : 'OFF'}`;
+        }
+
+        async function toggleTLS() {
+            const response = await fetch('/simulate_tls', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('tlsStatus').innerText = `TLS/SSL Issue Simulation: ${data.simulate_tls_issue ? 'ON' : 'OFF'}`;
+        }
+    </script>
+</body>
+</html>
