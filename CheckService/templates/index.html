@@ -5,24 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Dashboard</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
     <h1>Service Dashboard</h1>
-    <div class="squads">
-        {% for squad in squads %}
-        <div class="squad">
-            <h2>{{ squad.name }}</h2>
-            <div class="services">
-                {% for service in squad.services %}
-                <div class="service">
-                    <span class="service-name">{{ service.name }}</span>
-                    <span class="status {{ 'active' if service.status == 'active' else 'down' }}"></span>
-                    <p>Message: {{ service.message }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    <div id="squads" class="squads"></div>
+
+    <script>
+        const socket = io();
+
+        socket.on("update_status", (data) => {
+            updateDashboard(data.squads);
+        });
+
+        function updateDashboard(squads) {
+            const squadsContainer = document.getElementById("squads");
+            squadsContainer.innerHTML = "";
+
+            squads.forEach(squad => {
+                const squadDiv = document.createElement("div");
+                squadDiv.className = "squad";
+
+                const squadTitle = document.createElement("h2");
+                squadTitle.textContent = squad.name;
+                squadDiv.appendChild(squadTitle);
+
+                const servicesDiv = document.createElement("div");
+                servicesDiv.className = "services";
+
+                squad.services.forEach(service => {
+                    const serviceDiv = document.createElement("div");
+                    serviceDiv.className = "service";
+
+                    const serviceName = document.createElement("span");
+                    serviceName.className = "service-name";
+                    serviceName.textContent = service.name;
+                    serviceDiv.appendChild(serviceName);
+
+                    const status = document.createElement("span");
+                    status.className = `status ${service.status}`;
+                    serviceDiv.appendChild(status);
+
+                    const message = document.createElement("p");
+                    message.textContent = `Message: ${service.message}`;
+                    serviceDiv.appendChild(message);
+
+                    servicesDiv.appendChild(serviceDiv);
+                });
+
+                squadDiv.appendChild(servicesDiv);
+                squadsContainer.appendChild(squadDiv);
+            });
+        }
+    </script>
 </body>
 </html>

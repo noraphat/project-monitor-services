@@ -1,52 +1,30 @@
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
     margin: 0;
     padding: 20px;
     background-color: #f4f4f4;
-    text-align: center;
 }
 
 h1 {
     margin-bottom: 20px;
 }
 
-.squads {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.squad {
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.squad h2 {
-    margin-bottom: 15px;
-    color: #333;
-    text-align: left;
-}
-
 .services {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
 }
 
 .service {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    padding: 15px;
+    gap: 10px;
+    padding: 10px 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    width: 200px;
+    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
