@@ -85,15 +85,19 @@ pip install flask flask-socketio requests
 ---
 
 ### 4️⃣ **Run the Dashboard**
-1. From the main project directory:
+1. Navigate to the `CheckService` directory:
+   ```bash
+   cd Service2
+   ```
+2. Start Service2:
    ```bash
    python app.py
    ```
-2. Open your browser and go to:
+3. Open your browser and go to:
    ```
    http://localhost:5005
    ```
-3. The dashboard will update service statuses in real-time.
+4. The dashboard will update service statuses in real-time.
 
 ---
 
