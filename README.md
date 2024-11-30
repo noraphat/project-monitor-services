@@ -87,9 +87,9 @@ pip install flask flask-socketio requests
 ### 4️⃣ **Run the Dashboard**
 1. Navigate to the `CheckService` directory:
    ```bash
-   cd Service2
+   cd CheckService
    ```
-2. Start Service2:
+2. Start Dashboard backend:
    ```bash
    python app.py
    ```
